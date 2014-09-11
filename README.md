@@ -30,6 +30,9 @@ Just send a Yo to any one of the accounts, Yoafter will reply back after the res
 
 Make a shortcut on your homescreen (Android phones only!) for all these accounts for quick access to these reminders.
 
+## TODO:
+
+- [ ] Figure out if a the "link" parameter can be used as a Reminder text.
 
 ###Note:
 
