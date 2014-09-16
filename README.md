@@ -3,6 +3,11 @@
 
 YoApp Service for 1hr/30min/15min reminders. Visit http://yoafter.appspot.com.
 
+###Update 2: 9/15/2014
+* Refactored Code
+* includes two new Yo accounts, YOPOMODORO and YOPOMODORORESTART (http://pomodorotechnique.com/)
+* Now forwards the link paramater.
+
 
 ## What is it?
 
@@ -30,12 +35,9 @@ Just send a Yo to any one of the accounts, Yoafter will reply back after the res
 
 Make a shortcut on your homescreen (Android phones only!) for all these accounts for quick access to these reminders.
 
-## TODO:
-
-- [ ] Figure out if a the "link" parameter can be used as a Reminder text.
 
 ###Note:
 
-* I've not included apikeys.py to prevent abuse of the system. The callbacks are also secret. 
+* I've not included apikeys.py to prevent abuse of the system. The callbacks are also secret.
 * The Yo Api is restricted to one yo per recipient per minute. You can't receive two 15 min reminders in the same minute.
 
