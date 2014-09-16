@@ -19,6 +19,8 @@ Ever wanted a short reminder? With YoAfter you can remind yourself with a Yo wit
 | YOAFTERANHOUR | Yo's you after an hour.|
 | YOAFTER30MIN | Yo's you after 30 minutes. |
 | YOAFTER15MIN  | Yo's you after 15 minutes. |
+| YOPOMODORO  | Yo's you after 25 minutes. |
+| YOPOMODORORESTART  | Yo's you after 5 minutes. |
 
 
 ## Uses
@@ -26,6 +28,7 @@ Ever wanted a short reminder? With YoAfter you can remind yourself with a Yo wit
 * remember to take out the laundry once it's finished?
 * as a kitchen timer?
 * ...the possibilities are endless.
+* For the Pomodoro Technique.
 
 ## How to use it?
 
