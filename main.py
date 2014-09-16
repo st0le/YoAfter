@@ -9,31 +9,21 @@ SINGLE_YO_API = "http://api.justyo.co/yo/"
 jinja_environment = jinja2.Environment(autoescape=True,
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), 'templates')))
 
-class BaseScheduleHandler(webapp2.RequestHandler):
-    
-    def __init__(self, request=None, response=None, apitoken=None, delay=None):
-        self.initialize(request, response)
-        self.apitoken = apitoken
-        self.delay = delay
+class ScheduleHandler(webapp2.RequestHandler):
     
     def get(self):
         username = self.request.get("username")
-        if username:
-            taskqueue.add(url="/yo", params={"username":username.upper(), "api_token":self.apitoken}, method="POST", countdown=self.delay)
-
-    
-class FifteenMinuteHandler(BaseScheduleHandler):
-    def __init__(self, request=None, response=None):
-        BaseScheduleHandler.__init__(self, request, response, YOAFTER15MIN, 15 * 60)
-    
-class ThirtyMinuteHandler(BaseScheduleHandler):
-    def __init__(self, request=None, response=None):
-        BaseScheduleHandler.__init__(self, request, response, YOAFTER30MIN, 30 * 60)
-
-class OneHourHandler(BaseScheduleHandler):
-    def __init__(self, request=None, response=None):
-        BaseScheduleHandler.__init__(self, request, response, YOAFTERANHOUR, 60 * 60)
-        
+        link = self.request.get("link")
+        path = self.request.path
+        if path in APIDATA and username:
+            apitoken,delay = APIDATA[path]
+            taskqueue.add( url="/yo", 
+                           params={"username":username.upper(), 
+                                   "api_token":apitoken, 
+                                   "link":link}, 
+                           method="POST", 
+                           countdown=delay)
+         
 class YoHandler(webapp2.RequestHandler):
     
     def post(self):
@@ -51,9 +41,6 @@ class HomePageHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template("index.html")
         self.response.write(template.render({}))
 
-app = webapp2.WSGIApplication([ ("/", HomePageHandler),
-                                (YOAFTERANHOUR_CALLBACK, OneHourHandler),
-                                (YOAFTER30MIN_CALLBACK, ThirtyMinuteHandler),
-                                (YOAFTER15MIN_CALLBACK, FifteenMinuteHandler),
-                                ("/yo", YoHandler) ], debug=True)
+app = webapp2.WSGIApplication([ (callback,ScheduleHandler ) for callback in APIDATA ] +
+                              [ ("/", HomePageHandler), ("/yo", YoHandler) ], debug=True)
 
